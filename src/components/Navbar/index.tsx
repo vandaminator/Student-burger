@@ -32,7 +32,7 @@ function NavBar() {
         />
         <NavbarBrand>
           <Link href="/">
-            <h1 className="text-2xl font-bold text-primary">Roman Scoops</h1>
+            <h1 className="text-2xl font-bold text-primary">Student Burger</h1>
           </Link>
         </NavbarBrand>
       </NavbarContent>
