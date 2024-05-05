@@ -118,7 +118,10 @@ function SignInPage() {
             id="password"
             {...register("password", {
               required: "Fill in Password",
-              minLength: { value: 6, message: "Must have more then 6 characters"}
+              minLength: { value: 6, message: "Must have more then 6 digits"},
+              validate: {
+                isNumber: (a) => !isNaN(a) || "only numbers allowed"
+              }
             })}
           />
           {errors.password !== undefined && (

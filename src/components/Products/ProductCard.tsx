@@ -9,7 +9,7 @@ type Props = {
 const ProductCard = ({ item: { id, title, price, image } }: Props) => {
   return (
     <Card>
-      <CardBody className="flex flex-col">
+      <CardBody className="flex flex-col justify-center items-center">
         <Image src={image} alt={title} className="h-[250px] w-full"/>
       </CardBody>
       <CardFooter className="flex-col">

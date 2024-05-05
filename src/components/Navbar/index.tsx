@@ -19,9 +19,8 @@ import { useRouter } from "next/navigation";
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [search, setSearch] = useState("")
-  const router  = useRouter()
-
+  const [search, setSearch] = useState("");
+  const router = useRouter();
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-background">
@@ -32,7 +31,7 @@ function NavBar() {
         />
         <NavbarBrand>
           <Link href="/">
-            <h1 className="text-2xl font-bold text-primary">Student Burger</h1>
+            <h1 className="text-2xl font-bold text-primary">A1-Services</h1>
           </Link>
         </NavbarBrand>
       </NavbarContent>
@@ -59,10 +58,16 @@ function NavBar() {
       </NavbarContent>
       <NavbarMenu className="bg-background">
         <NavbarMenuItem className="items-center">
-          <Cart />
+          <div className="flex gap-3 justify-start items-center">
+            <Cart />
+            <p>Cart</p>
+          </div>
         </NavbarMenuItem>
         <NavbarMenuItem className="items-center">
-          <Customer />
+          <div className="flex gap-3 justify-start items-center">
+            <Customer />
+            <p>Customer</p>
+          </div>
         </NavbarMenuItem>
         {/* {items! &&
           items.map((i) => (

@@ -45,7 +45,7 @@ function HomeCarousel({ featuredItems }: Props) {
       <CardBody>
         <div className="flex flex-col gap-3 font-semibold md:flex-row-reverse md:items-center">
           <Image
-            className="h-[300px] w-full rounded bg-cover bg-no-repeat md:w-[300px] lg:h-[350px] lg:w-[350px]"
+            className="h-[300px] self-center w-[300px] rounded bg-cover bg-no-repeat sm:w-[300px] md:w-[300px] lg:h-[350px] lg:w-[350px]"
             src={image}
             alt={title}
             width={300}

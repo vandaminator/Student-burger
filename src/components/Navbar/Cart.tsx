@@ -28,7 +28,7 @@ function Cart() {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Cart</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1 text-secondary">Cart</ModalHeader>
               <ModalBody>
                 {cart.length === 0 ? (
                   <>No items</>
@@ -46,7 +46,7 @@ function Cart() {
                         >
                           <FaXmark size={24}/>
                         </Button>
-                        <p className="text-text">{p.title}</p>
+                        <p className="text-primary">{p.title}</p>
                         <Image
                           className="h-[100px] w-[100px]"
                           src={p.image}

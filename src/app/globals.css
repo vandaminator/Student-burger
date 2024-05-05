@@ -6,7 +6,7 @@
   :root {
     --text: #ede8e3;
     --background: #140f0a;
-    --primary: #ddc1a1;
+    --primary: #fe8800;
     --secondary: #835521;
     --accent: #de8d35;
   }
@@ -24,7 +24,8 @@
     min-height: 100vh;
   }
 
-  .dark input {
+  input,
+  select {
     color: #000;
   }
 }
