@@ -39,11 +39,15 @@ export const POST = async (req: Request) => {
       .insert([{ firstName, lastName, phoneNumber, password: hashedPassword }])
       .select();
 
-    console.log(data, error)
-
     if (data !== null) {
       return new NextResponse("successfull");
-    } else throw new Error("There was an error in creating the user");
+    } else if (error.code === "23505") {
+      const msg = "the phonenumber is already has a user";
+      return new NextResponse(msg, { status: 409, statusText: msg });
+    } else {
+      console.log(error)
+      throw new Error("There was an error in creating the user");
+    }
   } catch (error) {
     console.log(error);
     return new NextResponse("Something went wrong", { status: 500 });

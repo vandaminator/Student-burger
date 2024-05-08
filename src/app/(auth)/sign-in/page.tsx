@@ -38,7 +38,10 @@ function SignInPage() {
       if (response.ok) {
         toast.success("Your account has been created");
         router.push("/")
-      } else {
+      } else if (response.status === 409) {
+        toast.error(response.statusText)
+      }
+      else {
         toast.error("Something went wrong");
       }
       setisLoading(false);
