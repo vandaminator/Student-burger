@@ -21,9 +21,15 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <NavBar />
-          <main className="flex flex-col justify-between m-3 sm:mx-auto sm:w-[620px] md:w-[720px] lg:w-[1000px] xl:w-[1200px]">
+          <main className="m-3 flex flex-col justify-between sm:mx-auto sm:w-[620px] md:w-[720px] lg:w-[1000px] xl:w-[1200px]">
             {children}
           </main>
+          <footer className="pt-20 pb-10 px-5">
+            <p>
+              You will get a message from this WhatsApp number:+266 58967429
+              /+266 62510192 Notifying you when to collect your finished order
+            </p>
+          </footer>
         </Providers>
       </body>
     </html>
