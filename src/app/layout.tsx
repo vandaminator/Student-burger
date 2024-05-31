@@ -7,8 +7,8 @@ import { Providers } from "./providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Roman Scoops",
-  description: "The sweetest shop",
+  title: "Student Burger",
+  description: "Nul food e-shop",
 };
 
 export default function RootLayout({
@@ -26,8 +26,8 @@ export default function RootLayout({
           </main>
           <footer className="pt-20 pb-10 px-5">
             <p>
-              You will get a message from this WhatsApp number:+266 58967429
-              /+266 62510192 Notifying you when to collect your finished order
+              You will get a message from this WhatsApp number:+266 58967429 
+              / +266 62510192 Notifying you when to collect your finished order
             </p>
           </footer>
         </Providers>

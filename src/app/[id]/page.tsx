@@ -1,17 +1,19 @@
 "use client";
 
-import { Product, fetchIdProduct, idProduct } from "@/types";
+import { Product, fetchComments, fetchIdProduct, idProduct } from "@/types";
 import { useParams } from "next/navigation";
 import { useEffect, useState, useContext } from "react";
 import { cartContext } from "@/context/cart";
 import ImageSlider from "./components/ImageSlider";
 import { Button } from "@nextui-org/react";
 import { FaCartPlus } from "react-icons/fa";
+import Comments from "./components/Comments";
 
 function ProductPage() {
   const { id } = useParams<{ id: string }>();
   const [data, setData] = useState<idProduct | "notFound">();
   const [isloading, setLoading] = useState(true);
+  const [comments, setComments] = useState<fetchComments>([]);
   const { addToCart } = useContext(cartContext);
 
   useEffect(() => {
@@ -22,6 +24,15 @@ function ProductPage() {
       if (data.result.length !== 0) setData(data.result[0]);
       else setData("notFound");
       setLoading(false);
+
+      const commentsResponse = await fetch(
+        origin + `/api/product/${id}/comments`,
+      );
+      if (commentsResponse.ok) {
+        const commentsData: { comments: fetchComments} = await commentsResponse.json();
+        console.log("🚀 ~ load ~ commentsData:", commentsData)
+        setComments(commentsData.comments);
+      }
     };
     load();
   }, [id]);
@@ -33,7 +44,7 @@ function ProductPage() {
         title: data.title,
         image: data.images[0],
         price: data.price,
-        quantity: 1
+        quantity: 1,
       };
       addToCart(newProduct);
     }
@@ -50,7 +61,7 @@ function ProductPage() {
               <div className="flex gap-3 max-lg:flex-col max-lg:items-center">
                 <ImageSlider data={data} />
 
-                <div className="w-1/2 max-lg:w-full lg:h-fit lg:px-2 lg:pb-[100px] lg:rounded lg:pt-2 lg:shadow-lg">
+                <div className="w-1/2 max-lg:w-full lg:h-fit lg:rounded lg:px-2 lg:pb-[100px] lg:pt-2 lg:shadow-lg">
                   {/* Info  */}
                   <div className="flex w-full flex-col gap-3 rounded p-1 max-lg:shadow-lg">
                     <h1 className="text-2xl">{data.title}</h1>
@@ -60,7 +71,7 @@ function ProductPage() {
                   </div>
 
                   {/* Add Cart */}
-                  <div className="flex w-full justify-center p-3 max-lg:fixed max-lg:bottom-0 max-lg:left-0">
+                  <div className="flex w-full justify-center p-3">
                     <Button
                       className={`w-3/4 text-white max-lg:mx-auto ${
                         data.quantity > 0 ? "bg-accent" : "bg-danger"
@@ -78,6 +89,12 @@ function ProductPage() {
                       )}
                     </Button>
                   </div>
+                </div>
+
+                {/* Comments */}
+                <div className="flex w-full flex-col">
+                  <h2 className="text-2xl font-semibold">Comments</h2>
+                  <Comments comments={comments} />
                 </div>
               </div>
             </>

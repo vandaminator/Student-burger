@@ -31,3 +31,15 @@ export type Order = {
 };
 
 export type fetchQuantities = { id: string; quantity: number };
+
+export type fetchComments = {
+  created_at: string;
+  id: number;
+  message: string;
+  product: number;
+  user: number;
+  Users: {
+    firstName: string;
+    lastName: string;
+  } | null;
+}[];

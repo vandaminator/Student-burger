@@ -23,11 +23,50 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "public_Best_product_fkey"
+            foreignKeyName: "public_best_product_fkey"
             columns: ["product"]
             isOneToOne: false
             referencedRelation: "Products"
             referencedColumns: ["id"]
+          },
+        ]
+      }
+      Comments: {
+        Row: {
+          created_at: string
+          id: number
+          message: string
+          product: number
+          user: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          message: string
+          product: number
+          user: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          message?: string
+          product?: number
+          user?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Comments_product_fkey"
+            columns: ["product"]
+            isOneToOne: false
+            referencedRelation: "Products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Comments_user_fkey"
+            columns: ["user"]
+            isOneToOne: false
+            referencedRelation: "Users"
+            referencedColumns: ["phoneNumber"]
           },
         ]
       }
@@ -61,7 +100,7 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "public_Orders_user_fkey"
+            foreignKeyName: "public_orders_user_fkey"
             columns: ["user"]
             isOneToOne: false
             referencedRelation: "Users"
@@ -131,7 +170,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      Product: "id" | "title" | "price" | "qty"
+      [_ in never]: never
     }
     CompositeTypes: {
       [_ in never]: never
