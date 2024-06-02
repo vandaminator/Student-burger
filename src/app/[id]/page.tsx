@@ -7,11 +7,14 @@ import { cartContext } from "@/context/cart";
 import ImageSlider from "./components/ImageSlider";
 import { Button } from "@nextui-org/react";
 import { FaCartPlus } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import Comments from "./components/Comments";
+import HamsterLoader from "@/components/HamsterLoader";
 
 function ProductPage() {
   const { id } = useParams<{ id: string }>();
   const [data, setData] = useState<idProduct | "notFound">();
+  const [rating, setRating] = useState<number | string>("N/A");
   const [isloading, setLoading] = useState(true);
   const [comments, setComments] = useState<fetchComments>([]);
   const { addToCart } = useContext(cartContext);
@@ -21,16 +24,18 @@ function ProductPage() {
     const load = async () => {
       const response = await fetch(origin + `/api/product/${id}`);
       const data: fetchIdProduct = await response.json();
-      if (data.result.length !== 0) setData(data.result[0]);
-      else setData("notFound");
+      if (data.result.length !== 0) {
+        setData(data.result[0]);
+        if (data.rating) setRating(data.rating);
+      } else setData("notFound");
       setLoading(false);
 
       const commentsResponse = await fetch(
         origin + `/api/product/${id}/comments`,
       );
       if (commentsResponse.ok) {
-        const commentsData: { comments: fetchComments} = await commentsResponse.json();
-        console.log("🚀 ~ load ~ commentsData:", commentsData)
+        const commentsData: { comments: fetchComments } =
+          await commentsResponse.json();
         setComments(commentsData.comments);
       }
     };
@@ -52,7 +57,7 @@ function ProductPage() {
 
   return (
     <main className="flex flex-col gap-3">
-      {isloading && <>Loading ...</>}
+      {isloading && <HamsterLoader />}
       {data! && (
         <>
           {data === "notFound" && <>Not found</>}
@@ -63,8 +68,18 @@ function ProductPage() {
 
                 <div className="w-1/2 max-lg:w-full lg:h-fit lg:rounded lg:px-2 lg:pb-[100px] lg:pt-2 lg:shadow-lg">
                   {/* Info  */}
-                  <div className="flex w-full flex-col gap-3 rounded p-1 max-lg:shadow-lg">
+                  <div className="grid w-full grid-cols-2 gap-3 rounded p-1 max-lg:shadow-lg">
                     <h1 className="text-2xl">{data.title}</h1>
+
+                    <p
+                      className={`flex items-center gap-1 text-xl font-bold ${rating != "N/A" ? "" : "hidden"}`}
+                    >
+                      <span>
+                        <FaStar />
+                      </span>
+                      {rating}
+                    </p>
+
                     <p className="text-3xl font-bold">
                       R {data.price.toFixed(2)}
                     </p>
@@ -92,7 +107,7 @@ function ProductPage() {
                 </div>
 
                 {/* Comments */}
-                <div className="flex w-full flex-col">
+                <div className="flex w-full flex-col gap-3">
                   <h2 className="text-2xl font-semibold">Comments</h2>
                   <Comments comments={comments} />
                 </div>

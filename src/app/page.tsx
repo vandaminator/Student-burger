@@ -2,6 +2,7 @@
 import ProductGrid from "@/components/Products/ProductGrid";
 import HomeCarousel from "./HomeCarousel";
 import { useEffect, useState } from "react";
+import HamsterLoader from "@/components/HamsterLoader";
 
 export type Product = {
   title: string;
@@ -44,7 +45,7 @@ function Home() {
 
   return (
     <main className="flex w-full flex-col gap-3">
-      {isLoading && <>Loading ...</>}
+      {isLoading && <><HamsterLoader /></>}
       {bestData! && productData! && (
         <>
           <HomeCarousel featuredItems={bestData.result} />

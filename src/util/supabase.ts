@@ -30,7 +30,6 @@ class Supabase {
       const hashedPassword = await bcrypt.hash(password.toString(), 2);
       const body = `{\"firstName\":\"${firstName}\",\"lastName\":\"${lastName}\",\"phoneNumber\":${phoneNumber},\"password\":"${hashedPassword}"}`;
       const myHeaders = new Headers();
-      console.log("🚀 ~ Supabase ~ body:", body);
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("apikey", this.key);
 
@@ -42,7 +41,6 @@ class Supabase {
 
       const response = await fetch(url, requestOptions);
       const data: signInResponse = await response.json();
-      console.log(data);
 
       if (response.ok) {
         return data;

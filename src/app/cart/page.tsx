@@ -3,11 +3,11 @@ import { useContext, useEffect, useState } from "react";
 import { cartContext } from "@/context/cart";
 import { Button, Divider } from "@nextui-org/react";
 import { signIn, useSession } from "next-auth/react";
-import { Order, Product, fetchQuantities } from "@/types";
+import { Order, fetchQuantities } from "@/types";
 import Item from "./components/Item";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import CartLoading from "./loading";
+import HamsterLoader from "@/components/HamsterLoader";
 
 function CartPage() {
   const {
@@ -67,7 +67,7 @@ function CartPage() {
 
         if (response.ok) {
           toast.success("Order has been made");
-          removeAllItems()
+          removeAllItems();
           router.push("/cart/confirm");
         } else {
           toast.error("Something went wrong");
@@ -87,7 +87,7 @@ function CartPage() {
       <h1 className="text-3xl font-semibold text-primary">Cart</h1>
       <Divider className="my-4" />
       {pageLoading ? (
-        <CartLoading />
+        <HamsterLoader />
       ) : (
         <>
           {cart.length <= 0 && <>No items in cart</>}

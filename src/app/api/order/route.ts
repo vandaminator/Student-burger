@@ -25,7 +25,7 @@ export const POST = async (req: Request) => {
 
     return new NextResponse("The order has been made")
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return new NextResponse("Something went wrong", { status: 500 });
   }
 };

@@ -22,7 +22,7 @@ export type idProduct = {
   // category: { name: string; id: string };
   quantity: number;
 };
-export type fetchIdProduct = { result: idProduct[] };
+export type fetchIdProduct = { result: idProduct[], rating?: number | null };
 
 export type Order = {
   cart: Product[];
@@ -37,6 +37,7 @@ export type fetchComments = {
   id: number;
   message: string;
   product: number;
+  rating: number;
   user: number;
   Users: {
     firstName: string;

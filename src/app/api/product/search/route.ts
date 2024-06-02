@@ -24,8 +24,7 @@ export const GET = async (req: NextRequest) => {
     };
 
     let { data: Product, error } = await method(query);
-    console.log("🚀 ~ GET ~ Product:", Product);
-    if (error) console.log(error);
+    if (error) console.error(error);
 
     const info = CMSSupaProduct(Product ?? []);
 

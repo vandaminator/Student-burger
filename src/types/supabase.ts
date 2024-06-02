@@ -37,6 +37,7 @@ export type Database = {
           id: number
           message: string
           product: number
+          rating: number
           user: number
         }
         Insert: {
@@ -44,6 +45,7 @@ export type Database = {
           id?: number
           message: string
           product: number
+          rating: number
           user: number
         }
         Update: {
@@ -51,6 +53,7 @@ export type Database = {
           id?: number
           message?: string
           product?: number
+          rating?: number
           user?: number
         }
         Relationships: [
@@ -116,6 +119,7 @@ export type Database = {
           name: string
           price: number
           qty: number
+          rating: number[] | null
         }
         Insert: {
           created_at?: string
@@ -124,6 +128,7 @@ export type Database = {
           name: string
           price: number
           qty: number
+          rating?: number[] | null
         }
         Update: {
           created_at?: string
@@ -132,6 +137,7 @@ export type Database = {
           name?: string
           price?: number
           qty?: number
+          rating?: number[] | null
         }
         Relationships: []
       }
@@ -164,7 +170,21 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      product_rating: {
+        Row: {
+          average_rating: number | null
+          product: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Comments_product_fkey"
+            columns: ["product"]
+            isOneToOne: false
+            referencedRelation: "Products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       [_ in never]: never
