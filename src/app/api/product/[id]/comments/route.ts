@@ -11,7 +11,7 @@ export const GET = async (
     let { data: Comments, error } = await supabase
       .from("Comments")
       .select("*, Users(firstName, lastName)")
-      .eq("product", +params.id);
+      .eq("product", +params.id).order("created_at", {ascending: false}).limit(5);
 
     if (error) {
       throw Error(`Error: api/product/${params.id}/comments`, { cause: error });
