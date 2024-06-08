@@ -2,7 +2,13 @@
 
 import { Product, fetchComments, fetchIdProduct, idProduct } from "@/types";
 import { useParams } from "next/navigation";
-import { useEffect, useState, useContext } from "react";
+import {
+  useEffect,
+  useState,
+  useContext,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { cartContext } from "@/context/cart";
 import ImageSlider from "./components/ImageSlider";
 import { Button } from "@nextui-org/react";
@@ -10,6 +16,8 @@ import { FaCartPlus } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import Comments from "./components/Comments";
 import HamsterLoader from "@/components/HamsterLoader";
+import toast from "react-hot-toast";
+import AddComment from "./components/AddComment";
 
 function ProductPage() {
   const { id } = useParams<{ id: string }>();
@@ -53,6 +61,38 @@ function ProductPage() {
       };
       addToCart(newProduct);
     }
+  };
+
+  const handleAddComment = (
+    text: string,
+    rating: Set<string>,
+    user: number,
+    setLoading: Dispatch<SetStateAction<boolean>>,
+  ) => {
+    console.debug(rating)
+    if (text.length == 0 || rating.size == 0) {
+      toast.error("Rating or Comment is missing");
+    } else if (text.length > 72) {
+        toast.error("Text has more than 72 chars")
+    }
+
+    const numRating = rating.values().next().value as string
+    const origin = window.location.origin;
+    const loading = async () => {
+      setLoading(true);
+      const response = await fetch(origin + `/api/product/${id}/comments`, {
+        method: "POST",
+        body: JSON.stringify({ message: text, rating: +numRating, user }),
+      });
+      if (response.ok) {
+        toast.success("Comment was added");
+        window.location.reload()
+      } else {
+        toast.error(response.statusText);
+      }
+      setLoading(false);
+    };
+    loading();
   };
 
   return (
@@ -108,7 +148,10 @@ function ProductPage() {
 
                 {/* Comments */}
                 <div className="flex w-full flex-col gap-3">
-                  <h2 className="text-2xl font-semibold">Comments</h2>
+                  <div className="flex justify-between">
+                    <h2 className="text-2xl font-semibold">Comments</h2>
+                    <AddComment handleAddComment={handleAddComment} />
+                  </div>
                   <Comments comments={comments} />
                 </div>
               </div>
