@@ -117,7 +117,7 @@ function ProductPage() {
                       <span>
                         <FaStar />
                       </span>
-                      {rating}
+                      {typeof rating == "number" ? rating.toFixed(1) : rating}
                     </p>
 
                     <p className="text-3xl font-bold">
