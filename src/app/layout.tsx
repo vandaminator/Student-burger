@@ -27,7 +27,7 @@ export default function RootLayout({
           <footer className="pt-20 pb-10 px-5">
             <p>
               You will get a message from this WhatsApp number:+266 58967429 
-              / +266 62510192 Notifying you when to collect your finished order
+              / +266 62510193 Notifying you when to collect your finished order
             </p>
           </footer>
         </Providers>
