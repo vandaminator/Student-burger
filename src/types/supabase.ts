@@ -116,30 +116,41 @@ export type Database = {
           created_at: string
           id: number
           img: string[]
+          isFeatured: boolean | null
           name: string
+          Owner: string | null
           price: number
           qty: number
-          rating: number[] | null
         }
         Insert: {
           created_at?: string
           id?: number
           img: string[]
+          isFeatured?: boolean | null
           name: string
+          Owner?: string | null
           price: number
           qty: number
-          rating?: number[] | null
         }
         Update: {
           created_at?: string
           id?: number
           img?: string[]
+          isFeatured?: boolean | null
           name?: string
+          Owner?: string | null
           price?: number
           qty?: number
-          rating?: number[] | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "Products_Owner_fkey"
+            columns: ["Owner"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       Users: {
         Row: {

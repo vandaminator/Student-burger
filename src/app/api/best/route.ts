@@ -6,14 +6,13 @@ import { NextResponse } from "next/server";
 export const GET = async () => {
   const supabase = createClient();
 
-  let { data: Best, error } = await supabase.from("Best").select("*, Products(*)");
+  let { data: Products, error } = await supabase
+    .from("Products")
+    .select("*").is("isFeatured", true)
 
-  const load = Best || []
-  let Products = (Best ?? []).map((b) => b.Products).filter((p) => p)
+  let products = Products || []
+  const info = CMSSupaProduct(products);
 
-  //@ts-ignore
-  const info = CMSSupaProduct(Products)
-
-  const data: fetchProduct = {result: info}
+  const data: fetchProduct = { result: info };
   return NextResponse.json(data);
 };
