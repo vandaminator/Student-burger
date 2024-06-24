@@ -3,6 +3,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Product, fetchProduct } from "@/types";
 import ProductGrid from "@/components/Products/ProductGrid";
+import HamsterLoader from "@/components/HamsterLoader";
 
 function SearchPage() {
   const searchParams = useSearchParams();
@@ -48,7 +49,7 @@ function SearchPage() {
     </>
   );
 
-  return <>{isLoading ? <>Loading</> : show}</>;
+  return <>{isLoading ? <HamsterLoader /> : show}</>;
 }
 
 export default SearchPage;

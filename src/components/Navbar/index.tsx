@@ -46,8 +46,8 @@ function NavBar() {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        {/* <Input
-          className="max-w-[200px] rounded outline outline-accent"
+        <Input
+          className="max-w-[200px] rounded"
           startContent={<HiSearch className="h-[18px] w-[18px] text-accent" />}
           onKeyDown={(event) => {
             if (event.key === "Enter") router.push(`/search?query=${search}`)
@@ -57,7 +57,7 @@ function NavBar() {
             const value = event.currentTarget.value
             setSearch(value)
           }}
-        /> */}
+        />
         <div className="max-md:hidden">
           <Cart />
         </div>

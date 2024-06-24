@@ -6,20 +6,28 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = async (req: NextRequest) => {
   try {
     const url = req.nextUrl;
-    let productUrl = "";
     const supabase = createClient();
     const query = url.searchParams.get("query");
+
+    const page = +(url.searchParams.get("page") ?? "1");
+    console.log(url.search)
+    const start = page * 10 - 10;
+    const end = start + 9;
 
     const method = async (query: string | null) => {
       if (query && query.trim() !== "") {
         let search = await supabase
           .from("Products")
           .select("*")
-          .textSearch("name", query.trim());
+          .textSearch("name", query.trim())
+          .range(start, end);
         return search;
       } else {
-        let search = await supabase.from("Products").select("*");
-        return search
+        let search = await supabase
+          .from("Products")
+          .select("*")
+          .range(start, end);
+        return search;
       }
     };
 
