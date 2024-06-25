@@ -1,8 +1,7 @@
 import { signInResponse } from "@/types/signin";
 import { loginResponse } from "@/types/login";
 import bcrypt from "bcrypt";
-import { Product, fetchQuantities, idProduct } from "@/types";
-import { cmsClient } from "./Content";
+import { Product, idProduct } from "@/types";
 import { createClient } from "./supabase/server";
 
 class Supabase {
